@@ -84,5 +84,39 @@ public class ProprieteAConstruire extends CarreauPropriete {
         public void setGroupePropriete(Groupe groupePropriete) {
             this.groupePropriete = groupePropriete;
         }
+        
+        public ArrayList<ProprieteAConstruire> peutConstruire(){
+            Joueur j = this.getMonopoly().getJoueurCourant();
+            Groupe groupe = this.getGroupePropriete();
+            ArrayList <ProprieteAConstruire> res = new ArrayList();
+            
+            if (groupe.estPossede(j) && groupe.getPrixAchatConstruction() <= j.getCash()){
+                for (ProprieteAConstruire prop : groupe.getProprietes()){
+                    if ( (prop.getNbMaisons() + (prop.getNbHotel()*5)) <= groupe.getMoyenne() 
+                            && prop.getNbMaisons()<4 
+                            && this.getMonopoly().getNbMaisons() != 0){
+                        res.add(prop);
+                    }
+                    else if ((prop.getNbMaisons() + (prop.getNbHotel()*5)) <= groupe.getMoyenne() 
+                            && prop.getNbMaisons() == 4 
+                            && this.getMonopoly().getNbHotels() != 0){
+                        res.add(prop);
+                    }
+                }
+            }
+            return res;
+        }
+        
+        public void Construire(){
+            if (this.getNbMaisons()<4){
+                this.construireMaison();
+                this.getMonopoly().decrNbMaisons(1);
+            }
+            else {
+                this.construireHotel();
+                this.getMonopoly().decrNbHotels(1);
+            }
+            this.getMonopoly().getJoueurCourant().removeCash(this.getGroupePropriete().getPrixAchatConstruction());
+        }
 
 }
