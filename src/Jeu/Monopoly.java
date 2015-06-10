@@ -119,6 +119,31 @@ public class Monopoly {
             this.cartesCaisse = carteCaisses;
         }
         
+        public int getNbMaisons(){
+            return this.nbMaisons;
+        }
+        public void setNbMaisons(int nbMaisons){
+            this.nbMaisons = nbMaisons;
+        }
+        public void incrNbMaisons(int i){
+            this.nbMaisons += i;
+        }
+        public void decrNbMaisons(int i){
+            this.nbMaisons -= i;
+        }
+        
+        public int getNbHotels(){
+            return this.nbHotels;
+        }
+        public void setNbHotels(int nbHotels){
+            this.nbHotels = nbHotels;
+        }
+        public void incrNbHotels(int i){
+            this.nbHotels += i;
+        }
+        public void decrNbHotels(int i){
+            this.nbHotels -= i;
+        }
         
        
         
@@ -210,14 +235,14 @@ public class Monopoly {
         }
 
         private void initGroupe(){
-            Groupe bleuFonce = new Groupe(CouleurPropriete.bleuFonce, 200, 200);
-            Groupe orange    = new Groupe(CouleurPropriete.orange, 100, 100);
-            Groupe mauve     = new Groupe(CouleurPropriete.mauve, 50, 50);
-            Groupe violet    = new Groupe(CouleurPropriete.violet, 100, 100);
-            Groupe bleuCiel  = new Groupe(CouleurPropriete.bleuCiel, 50, 50);
-            Groupe jaune     = new Groupe(CouleurPropriete.jaune, 150, 150);
-            Groupe vert      = new Groupe(CouleurPropriete.vert, 200, 200);
-            Groupe rouge     = new Groupe(CouleurPropriete.rouge, 150, 150);
+            Groupe bleuFonce = new Groupe(CouleurPropriete.bleuFonce, 200);
+            Groupe orange    = new Groupe(CouleurPropriete.orange, 100);
+            Groupe mauve     = new Groupe(CouleurPropriete.mauve, 50);
+            Groupe violet    = new Groupe(CouleurPropriete.violet, 100);
+            Groupe bleuCiel  = new Groupe(CouleurPropriete.bleuCiel, 50);
+            Groupe jaune     = new Groupe(CouleurPropriete.jaune, 150);
+            Groupe vert      = new Groupe(CouleurPropriete.vert, 200);
+            Groupe rouge     = new Groupe(CouleurPropriete.rouge, 150);
 
             groupes.put("bleuFonce", bleuFonce);
             groupes.put("orange", orange);
