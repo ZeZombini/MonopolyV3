@@ -11,13 +11,14 @@ public class Joueur {
 	private Carreau positionCourante;
 	private ArrayList<ProprieteAConstruire> proprietesAConstruire = new ArrayList<ProprieteAConstruire>();
         
-        private boolean vientCarteChance;
         private int dernierJetDes;
         private boolean drapeauPrison;
         private boolean carteChanceLibere = false;
         private boolean carteCaisseLibere = false;
         private boolean doubleDe;
         private int nbDouble;
+        private int nbTourPrison = 0;
+        private boolean peutJouer = true;
 
         public Joueur(String nomJoueur,Carreau positionCourante, Monopoly monopoly) {
             setNomJoueur(nomJoueur);
@@ -30,6 +31,10 @@ public class Joueur {
             this.setDrapeauPrison(true);
             this.monopoly.getInter().afficherAllerPrison(this);
 	}
+        public void liberePrison() {
+            this.setDrapeauPrison(false);
+            this.setNbTourPrison(0);
+        }
 
 	public void avancer(int dés) {
             this.dernierJetDes = dés;
@@ -101,16 +106,13 @@ public class Joueur {
             if (cashJoueur >= cash){ // Si le joueur a asser d'argent on lui enleve cash
                 this.setCash(cashJoueur - cash);
                 return cash; // Et on retourne cash
-            } else { // Sinon, on lui enlève toute son argent
-                this.setCash(0);
-                getMonopoly().elimineJoueur(this);
+            } else { // Sinon, on lui enlève tout son argent
+                this.setCash(-1);
+                this.setPeutJouer(false);
                 return cashJoueur; // et on retourne ce qu'il avait
             }
 	}
         
-        public Monopoly getMonopoly(){
-            return this.monopoly;
-        }
 
         
 	public int getNbGare() {
@@ -119,6 +121,9 @@ public class Joueur {
 	public void addGare(Gare gare) {
             this.gares.add(gare);
 	}
+        public ArrayList<Gare> getGares(){
+            return this.gares;
+        }
         
         
         public int getNbCompagnie() {
@@ -127,6 +132,9 @@ public class Joueur {
 	public void addCompagnie(Compagnie compagnie) {
             this.compagnies.add(compagnie);
 	}
+        public ArrayList<Compagnie> getCompagnies(){
+            return this.compagnies;
+        }
         
         public ArrayList<ProprieteAConstruire> getProprietesAConstruire() {
             return this.proprietesAConstruire;
@@ -163,6 +171,9 @@ public class Joueur {
             return this.dernierJetDes;
 	}
         
+        public boolean getDrapeauPrison(){
+            return this.drapeauPrison;
+        }
         public void setDrapeauPrison(boolean drapeau){
             this.drapeauPrison = drapeau;
         }
@@ -197,9 +208,27 @@ public class Joueur {
             this.nbDouble++;
         }
 
+        public Monopoly getMonopoly(){
+            return this.monopoly;
+        }
         private void setMonopoly(Monopoly monopoly) {
             this.monopoly = monopoly;
         }
 
-
+        public int getNbTourPrison(){
+            return this.nbTourPrison;
+        }
+        private void setNbTourPrison(int nbTourPrison){
+            this.nbTourPrison = nbTourPrison;
+        }
+        public void incrNbTourPrison(){
+            this.nbTourPrison += 1;
+        }
+        
+        public boolean getPeutJouer(){
+            return this.peutJouer;
+        }
+        private void setPeutJouer(boolean peutJouer){
+            this.peutJouer = peutJouer;
+        }
 }
