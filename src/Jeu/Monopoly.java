@@ -26,45 +26,46 @@ public class Monopoly {
 	}
 
         public void jouer(){
-            Joueur joueur = this.getJoueurCourant();
-            joueur.setDoubleDe(true);
-            if (joueur.getDrapeauPrison() && joueur.getPeutJouer()) {
+            Joueur j = this.getJoueurCourant();
+            j.setDoubleDe(true);// Réinitialisation des variables pour le tour du joueur
+            j.setNbDouble(0);
+            if (j.getDrapeauPrison() && j.getPeutJouer()) { //Cas où le joueur est en prison et n'est pas éliminé.
                 int des = this.lancerDes();
-                if (joueur.getDoubleDe()){
-                    joueur.liberePrison();
-                    joueur.incDouble();
-                    joueur.avancer(des);
-                    joueur.getPositionCourante().action(joueur);
+                if (j.getDoubleDe()){   // Le joueur se libère de prison avec un double, il commence un tour de jeu normal
+                    j.liberePrison();   // pour finir dans la boucle correspondant à un joueur libre.
+                    j.incDouble();
+                    j.avancer(des);
+                    j.getPositionCourante().action(j);
                 }
-                else{
-                    joueur.incrNbTourPrison();
-                    if (joueur.getNbTourPrison() == 3){
-                        joueur.removeCash(50);
-                        if (joueur.getPeutJouer()){
-                            joueur.liberePrison();
-                            joueur.avancer(des);
-                            joueur.getPositionCourante().action(joueur);
+                else{                   // Le joueur n'a pas réussi à se libérer par un lancer de dés.
+                    j.incrNbTourPrison(); // On incrémente donc sa durée de détention.
+                    if (j.getNbTourPrison() == 3){  // Si la durée de détention est arrivée à sa limite,
+                        j.removeCash(50);           // le joueur doit payer une amende.
+                        if (j.getPeutJouer()){      // On vérifie que le paiement de la facture n'ait pas
+                            j.liberePrison();       // fait faire faillite au joueur.
+                            j.avancer(des);
+                            j.getPositionCourante().action(j);
                         }
                     }
-                    else {
-                        if (joueur.isCarteCaisseLibere() && this.getInter().afficherUtilisationCarte()){
-                            this.getCartesCaisse().addLast(new CarteCaisse(this, CarteCaisseEnum.libere_prison));
-                            joueur.setCarteCaisseLibere(false);
-                            joueur.liberePrison();
+                    else {  // Dans le cas où le joueur n'a pas fait de double et n'est pas arrivé à sa durée maximale de détention
+                        if (j.isCarteCaisseLibere() && this.getInter().afficherUtilisationCarte()){     // On vérifie s'il possède une carte Caisse de Communauté
+                            this.getCartesCaisse().addLast(new CarteCaisse(this, CarteCaisseEnum.libere_prison)); // et on lui propose de s'en servir
+                            j.setCarteCaisseLibere(false);
+                            j.liberePrison();
                         }
-                        else if (joueur.isCarteChanceLibere() && this.getInter().afficherUtilisationCarte()){
-                            this.getCartesChance().addLast(new CarteChance(this, CarteChanceEnum.libere_prison));
-                            joueur.setCarteChanceLibere(false);
-                            joueur.liberePrison();
+                        else if (j.isCarteChanceLibere() && this.getInter().afficherUtilisationCarte()){ // On vérifie s'il possède une carte Chance
+                            this.getCartesChance().addLast(new CarteChance(this, CarteChanceEnum.libere_prison)); // et on lui propose de s'en servir.
+                            j.setCarteChanceLibere(false);
+                            j.liberePrison();
                         }
                     }
                 }
             }
-            while (joueur.getDoubleDe() && !joueur.getDrapeauPrison() && joueur.getPeutJouer()){
-                jouerUnCoup(joueur);
+            while (j.getDoubleDe() && !j.getDrapeauPrison() && j.getPeutJouer()){ // Le joueur n'est pas en prison, il est donc lancé dans une boucle standard 
+                jouerUnCoup(j);                                                   // lui permettant de réaliser les actions adéquates.
             }
-            if (!joueur.getPeutJouer()){
-                this.elimineJoueur(joueur);
+            if (!j.getPeutJouer()){ // Si le joueur a fait faillite durant le tour, il est éliminé.
+                this.elimineJoueur(j);
             }
             this.getInter().afficherFinDuTour();
         }       
