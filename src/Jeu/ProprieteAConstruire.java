@@ -47,10 +47,10 @@ public class ProprieteAConstruire extends CarreauPropriete {
 
         @Override
         public void action(Joueur j) {
-            Joueur jProprio = getProprietaire();
-            if (jProprio == null){
+            if (this.getProprietaire() == null){
                 achatPropriété(j);
             }
+            Joueur jProprio = getProprietaire();
             if (jProprio != j){
                 int loyer = calculLoyer(jProprio);
                 j.payer(jProprio, loyer);
