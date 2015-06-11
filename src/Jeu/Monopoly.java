@@ -21,11 +21,13 @@ public class Monopoly {
 	public  LinkedList<CarteCaisse> cartesCaisse = new LinkedList<>();
 
         public Monopoly(String dataFilename){
+                initGroupe();
 		buildGamePlateau(dataFilename);
+                initCarte();
 	}
 
         /**
-         * Procédure permettant le déroulement complet 
+         * Procédure permettant le déroulement complet d'une partie
          */
         public void jouer(){
             Joueur j = this.getJoueurCourant();
@@ -81,16 +83,22 @@ public class Monopoly {
             }
 
             this.getInter().afficherFinDuTour(j);
-            
         }       
         
+        /**
+         * Lance le déroulement d'un coup normal, avec lancer de dés et action
+         * @param joueur le joueur qui doit jouer
+         */
         public void jouerUnCoup(Joueur joueur){
             lancerDesEtAvancer();
             joueur.getPositionCourante().action(joueur);
         }
 
-        
-	public int lancerDe() {
+        /**
+         * Lance un jet de dé à 6 faces
+         * @return une valeur entre 1 et 6
+         */
+        public int lancerDe() {
             Random jet = new Random();
             int valDe = jet.nextInt(5)+1;
             return valDe;
@@ -129,7 +137,13 @@ public class Monopoly {
             inter.afficherEtatJoueur(joueur);
         }
         
-        
+        /**
+         * Supprime toutes les propriétés d'un joueur et rajoute
+         * les maisons/hotels, qui étaient construit dessus,
+         * dans le monopoly.
+         * Supprimer ensuite le joueur.
+         * @param j Le joueur a éliminé du jeu
+         */
         public void elimineJoueur(Joueur j) {
             for (ProprieteAConstruire prop : j.getProprietesAConstruire()){
                 prop.setProprietaire(null);
@@ -150,10 +164,12 @@ public class Monopoly {
              
         
 
-
-
-        
         /* GETTEUR / SETTEUR */
+
+        /**
+         * Ajoute un nouveau joueur au monopoly
+         * @param nomJoueur Le nom du joueur
+         */
         public void nouveauJoueur(String nomJoueur){
             Joueur j = new Joueur(nomJoueur, getCarreau(1), this);
             addJoueur(j);
@@ -225,7 +241,10 @@ public class Monopoly {
         
         /* CREATION DU JEU */
         
-        
+        /**
+         * Crée un plateau de jeu à partir du fichier dataFilename.
+         * @param dataFilename
+         */
         private void buildGamePlateau(String dataFilename)
         {
                 try{
@@ -307,7 +326,10 @@ public class Monopoly {
                         System.err.println("[buildGamePlateau()] : Error while reading file!");
                 }
         }
-
+        
+        /**
+         * Crée les différents groupe de propriétés.
+         */
         private void initGroupe(){
             Groupe bleuFonce = new Groupe(CouleurPropriete.bleuFonce, 200);
             Groupe orange    = new Groupe(CouleurPropriete.orange, 100);
@@ -329,7 +351,10 @@ public class Monopoly {
         }
 
 
-
+        /**
+         * Crée les cartes chance et caisse de communauté et les ajoutes
+         * au monopoly après les avoirs mélangé.
+         */
         private void initCarte(){
             Random res = new Random();
             LinkedList<CarteCaisse> carteCaissesTemp = new LinkedList();
