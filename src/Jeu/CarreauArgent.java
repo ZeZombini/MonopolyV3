@@ -11,7 +11,7 @@ public class CarreauArgent extends CarreauAction {
     public int getMontant() {
         return montant;
     }
-    public void setMontant(int montant) {
+    private void setMontant(int montant) {
         this.montant = montant;
     } 
 
