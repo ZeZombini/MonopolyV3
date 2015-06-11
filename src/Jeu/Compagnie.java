@@ -41,7 +41,6 @@ public class Compagnie extends CarreauPropriete {
                 setProprietaire(j);
                 j.addCompagnie(this);
             }
-            
         }
     }
 
