@@ -15,21 +15,21 @@ public abstract class Carreau {
         public int getNumero() {
             return numero;
         }
-        public void setNumero(int numero) {
+        private void setNumero(int numero) {
             this.numero = numero;
         }
 
         public String getNomCarreau() {
             return nomCarreau;
         }
-        public void setNomCarreau(String nomCarreau) {
+        private void setNomCarreau(String nomCarreau) {
             this.nomCarreau = nomCarreau;
         }
 
         public Monopoly getMonopoly() {
             return monopoly;
         }
-        public void setMonopoly(Monopoly monopoly) {
+        private void setMonopoly(Monopoly monopoly) {
             this.monopoly = monopoly;
         }
         
