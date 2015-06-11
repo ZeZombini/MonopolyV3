@@ -11,7 +11,7 @@ public class CarreauTirage extends CarreauAction {
     
     @Override
     public void action(Joueur j){
-        if (this.getNomCarreau() == "Caisse de Communauté"){
+        if ("Caisse de Communauté".equals(this.getNomCarreau())){
             CarteCaisse carteATirer = this.getMonopoly().getCartesCaisse().pollFirst();
             carteATirer.actionAEffectuer();
             if (carteATirer.getAction() != CarteCaisseEnum.libere_prison){
