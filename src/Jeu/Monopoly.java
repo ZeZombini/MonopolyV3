@@ -31,7 +31,7 @@ public class Monopoly {
          */
         public void jouer(){
             Joueur j = this.getJoueurCourant();
-            getInter().afficheRecapDebutTour();
+            getInter().afficheRecapDebutTour(j);
             j.setDoubleDe(true);// Réinitialisation des variables pour le tour du joueur
             j.setNbDouble(0);
             if (j.getDrapeauPrison() && j.getPeutJouer()) { //Cas où le joueur est en prison et n'est pas éliminé.
