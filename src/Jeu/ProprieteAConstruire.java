@@ -40,7 +40,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
                 if(getMonopoly().inter.demandeAchatPropriété(this)){
                     j.removeCash(prix);
                     setProprietaire(j);
-                    j.addGare(this);
+                    j.addPropriete(this);
                 }
             }
         }
