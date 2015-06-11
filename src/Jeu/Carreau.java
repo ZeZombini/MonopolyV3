@@ -33,5 +33,9 @@ public abstract class Carreau {
             this.monopoly = monopoly;
         }
         
+        /**
+         * Effectue l'action correspondant au carreau où se trouve le joueur j.
+         * @param j
+         */
         public abstract void action(Joueur j);
 }
