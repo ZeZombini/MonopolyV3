@@ -51,7 +51,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
                 achatPropriété(j);
             }
             Joueur jProprio = getProprietaire();
-            if (jProprio != j){
+            if (jProprio != j && jProprio != null){
                 int loyer = calculLoyer(jProprio);
                 j.payer(jProprio, loyer);
             }
