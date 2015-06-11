@@ -9,6 +9,7 @@ import Jeu.Gare;
 import Jeu.Joueur;
 import Jeu.Monopoly;
 import Jeu.ProprieteAConstruire;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Interface {
@@ -75,10 +76,10 @@ public class Interface {
                 for (Gare g : j.getGares()){
                     System.out.println(" - " + g.getNomCarreau());
                 }
-                for (Compagnie c : j.getCompanies()){
+                for (Compagnie c : j.getCompagnies()){
                     System.out.println(" - " + c.getNomCarreau());
                 }
-                for (ProprieteAConstruire p : j.getProprietes()){
+                for (ProprieteAConstruire p : j.getProprietesAConstruire()){
                     System.out.println(" - " + p.getGroupePropriete().getCouleur() + " : " + p.getNomCarreau());
                 }
             }
@@ -144,7 +145,7 @@ public class Interface {
             Scanner sc = new Scanner(System.in);
             System.out.println("Voulez vous utiliser votre carte Libéré de prison ?");
             String choix = sc.nextLine();
-            while (!"oui".equals(choix) & !"non".equals(choix)){
+            while (!"oui".equals(choix) && !"non".equals(choix)){
                 System.out.println("Je n'ai pas compris votre choix");
                 System.out.println("oui/non : ");
                 choix = sc.nextLine();
@@ -152,6 +153,22 @@ public class Interface {
                 return "oui".equals(choix);          
         }
         
+        public int demanderChoixProp(ArrayList<ProprieteAConstruire> proprietesConstructibles){
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Voulez-vous construire sur une des propriétés suivantes ?");
+            System.out.println("0 - Ne pas construire.");
+            int i = 1;
+            for (ProprieteAConstruire prop : proprietesConstructibles){
+                System.out.println(i + " - Construire sur la case " + prop.getNomCarreau());
+                i++;
+            }
+            int choix = sc.nextInt();
+            while (choix<0 | choix>i){
+                System.out.println("Veuillez saisir un chiffre présent dans la liste.");
+                choix = sc.nextInt();
+            }
+            return choix;
+        }
         
 
 }
