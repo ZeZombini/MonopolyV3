@@ -204,6 +204,9 @@ public class Joueur {
         public int getNbDouble(){
             return this.nbDouble;
         }
+        public void setNbDouble(int nbDouble){
+            this.nbDouble = nbDouble;
+        }
         public void incrNbDouble(){
             this.nbDouble++;
         }
