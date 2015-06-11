@@ -173,9 +173,9 @@ public class Interface {
             Scanner sc = new Scanner(System.in);
             System.out.println("Voulez-vous construire sur une des propriétés suivantes ?");
             System.out.println("0 - Ne pas construire.");
-            int i = 1;
+            int i = 0;
             for (ProprieteAConstruire prop : proprietesConstructibles){
-                System.out.println(i + " - Construire sur la case " + prop.getNomCarreau());
+                System.out.println((i+1) + " - Construire sur la case " + prop.getNomCarreau());
                 i++;
             }
             int choix = sc.nextInt();
