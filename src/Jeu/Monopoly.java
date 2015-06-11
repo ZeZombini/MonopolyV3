@@ -14,7 +14,7 @@ public class Monopoly {
 	private int nbMaisons = 32;
 	private int nbHotels = 12;
         private HashMap<String, Groupe> groupes = new HashMap<>();
-        private HashMap<Integer, Carreau> carreaux;
+        private HashMap<Integer, Carreau> carreaux = new HashMap<>();
 	public  Interface inter;
 	private LinkedList<Joueur> joueurs = new LinkedList<>();
 	public  LinkedList<CarteChance> cartesChance = new LinkedList<>();
@@ -189,9 +189,12 @@ public class Monopoly {
             return joueurs.getFirst();
 	}
         
-       public Interface getInter(){
-           return this.inter;
-       }
+        public Interface getInter(){
+            return this.inter;
+        }
+        public void setInter(Interface inter){
+            this.inter = inter;
+        }
        
         public LinkedList<CarteChance> getCartesChance(){
             return this.cartesChance;
@@ -249,8 +252,6 @@ public class Monopoly {
         {
                 try{
                         ArrayList<String[]> data = readDataFile(dataFilename, ",");
-
-                        //TODO: create cases instead of displaying
                         for(int i=0; i<data.size(); ++i){
                                 String caseType = data.get(i)[0];
                                 if(caseType.compareTo("P") == 0){
