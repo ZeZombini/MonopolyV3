@@ -60,6 +60,7 @@ public class Joueur {
         public void payer(Joueur creancier, int loyer) {
             int argentEffectif = removeCash(loyer);
             creancier.addCash(argentEffectif);
+            getMonopoly().getInter().afficheMontantPayer(creancier, loyer);
 	}
         
         public void reculer(int nbcases) {
@@ -140,7 +141,11 @@ public class Joueur {
             return this.proprietesAConstruire;
         }
 	public void addPropriete(ProprieteAConstruire prop) {
-            this.proprietesAConstruire.add(prop);
+            int i = 0;
+            while (proprietesAConstruire.get(i).getNumero() > prop.getNumero()){
+                i++;
+            }
+            this.proprietesAConstruire.add(i,prop);
 	}
         
         public int getNbMaisonsConstruites(){
