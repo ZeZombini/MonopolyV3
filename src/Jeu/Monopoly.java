@@ -31,9 +31,11 @@ public class Monopoly {
          */
         public void jouer(){
             Joueur j = this.getJoueurCourant();
+            getInter().afficheRecapDebutTour();
             j.setDoubleDe(true);// Réinitialisation des variables pour le tour du joueur
             j.setNbDouble(0);
             if (j.getDrapeauPrison() && j.getPeutJouer()) { //Cas où le joueur est en prison et n'est pas éliminé.
+                getInter().lancementDes();
                 int des = this.lancerDes();
                 if (j.getDoubleDe()){   // Le joueur se libère de prison avec un double, il commence un tour de jeu normal
                     j.liberePrison();   // pour finir dans la boucle correspondant à un joueur libre.
@@ -65,8 +67,9 @@ public class Monopoly {
                     }
                 }
             }
-            while (j.getDoubleDe() && !j.getDrapeauPrison() && j.getPeutJouer()){ // Le joueur n'est pas en prison, il est donc lancé dans une boucle standard 
-                jouerUnCoup(j);                                                   // lui permettant de réaliser les actions adéquates.
+            while (j.getDoubleDe() && !j.getDrapeauPrison() && j.getPeutJouer()){
+                getInter().lancementDes();// Le joueur n'est pas en prison, il est donc lancé dans une boucle standard 
+                jouerUnCoup(j);           // lui permettant de réaliser les actions adéquates.
             }
             for (Joueur jTemp : getJoueurs()){
                 // Si le joueur a fait faillite durant le tour, il est éliminé.
