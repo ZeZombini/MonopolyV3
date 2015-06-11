@@ -11,12 +11,23 @@ public class Compagnie extends CarreauPropriete {
         Joueur jProprio = getProprietaire();
         if (jProprio == null){
             achatPropriété(j);
+        } else if (jProprio != j){
+            int loyer = calculLoyer(jProprio);
+            getMonopoly().getInter().afficheMontantPayer(jProprio, loyer);
+            j.payer(jProprio, loyer);
         }
     }
     
     @Override
-    public int calculLoyer(Joueur proprio) {
-        return 0;
+    public int calculLoyer(Joueur jProprio) {
+        Joueur j = getMonopoly().getJoueurCourant();
+        int dernierJetDes = j.getDernierJetDés();
+        int nbCompagnie = jProprio.getNbCompagnie();
+        if (nbCompagnie == 2){
+            return dernierJetDes*10;
+        } else {
+            return dernierJetDes*4;
+        }
     }
 
     @Override
