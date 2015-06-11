@@ -57,10 +57,10 @@ public class ProprieteAConstruire extends CarreauPropriete {
             }
             else if (jProprio == j){
                ArrayList<ProprieteAConstruire> proprietesConstructibles = peutConstruire();
-                while (proprietesConstructibles != null){
+                while (!proprietesConstructibles.isEmpty()){
                     int choix = getMonopoly().getInter().demanderChoixProp(proprietesConstructibles);
                     if (choix == 0){
-                        proprietesConstructibles = null;
+                        proprietesConstructibles.clear();
                     }
                     else {
                         proprietesConstructibles.get(choix-1).construire();
@@ -117,7 +117,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
         public ArrayList<ProprieteAConstruire> peutConstruire(){
             Joueur j = this.getMonopoly().getJoueurCourant();
             Groupe groupe = this.getGroupePropriete();
-            ArrayList <ProprieteAConstruire> res = null;
+            ArrayList<ProprieteAConstruire> res = new ArrayList<>();
             
             if (groupe.estPossede(j) && groupe.getPrixAchatConstruction() <= j.getCash()){
                 for (ProprieteAConstruire prop : groupe.getProprietes()){
