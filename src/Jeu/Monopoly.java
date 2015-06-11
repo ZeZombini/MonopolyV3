@@ -16,8 +16,7 @@ public class Monopoly {
         private HashMap<String, Groupe> groupes = new HashMap<>();
         private HashMap<Integer, Carreau> carreaux;
 	public  Interface inter;
-	private ArrayList<Joueur> joueurs = new ArrayList<>();
-        private int numJoueur;
+	private LinkedList<Joueur> joueurs = new LinkedList<>();
 	public  LinkedList<CarteChance> cartesChance = new LinkedList<>();
 	public  LinkedList<CarteCaisse> cartesCaisse = new LinkedList<>();
 
@@ -25,6 +24,9 @@ public class Monopoly {
 		buildGamePlateau(dataFilename);
 	}
 
+        /**
+         * Procédure permettant le déroulement complet 
+         */
         public void jouer(){
             Joueur j = this.getJoueurCourant();
             j.setDoubleDe(true);// Réinitialisation des variables pour le tour du joueur
@@ -48,12 +50,12 @@ public class Monopoly {
                         }
                     }
                     else {  // Dans le cas où le joueur n'a pas fait de double et n'est pas arrivé à sa durée maximale de détention
-                        if (j.isCarteCaisseLibere() && this.getInter().afficherUtilisationCarte()){     // On vérifie s'il possède une carte Caisse de Communauté
+                        if (j.isCarteCaisseLibere() && this.getInter().demandeUtilisationCarte()){     // On vérifie s'il possède une carte Caisse de Communauté
                             this.getCartesCaisse().addLast(new CarteCaisse(this, CarteCaisseEnum.libere_prison)); // et on lui propose de s'en servir
                             j.setCarteCaisseLibere(false);
                             j.liberePrison();
                         }
-                        else if (j.isCarteChanceLibere() && this.getInter().afficherUtilisationCarte()){ // On vérifie s'il possède une carte Chance
+                        else if (j.isCarteChanceLibere() && this.getInter().demandeUtilisationCarte()){ // On vérifie s'il possède une carte Chance
                             this.getCartesChance().addLast(new CarteChance(this, CarteChanceEnum.libere_prison)); // et on lui propose de s'en servir.
                             j.setCarteChanceLibere(false);
                             j.liberePrison();
@@ -64,19 +66,29 @@ public class Monopoly {
             while (j.getDoubleDe() && !j.getDrapeauPrison() && j.getPeutJouer()){ // Le joueur n'est pas en prison, il est donc lancé dans une boucle standard 
                 jouerUnCoup(j);                                                   // lui permettant de réaliser les actions adéquates.
             }
-            if (!j.getPeutJouer()){ // Si le joueur a fait faillite durant le tour, il est éliminé.
-                this.elimineJoueur(j);
+            for (Joueur jTemp : getJoueurs()){
+                // Si le joueur a fait faillite durant le tour, il est éliminé.
+                if (!jTemp.getPeutJouer()){ 
+                    this.elimineJoueur(jTemp);
+                }
             }
-            this.getInter().afficherFinDuTour();
+            
+            // Si le premier joueur est toujours le même après la boucle d'élimination
+            // Alors on le met en dernier.
+            if (j == getJoueurs().getFirst()){
+                Joueur jTemp = getJoueurs().pollFirst();
+                getJoueurs().addLast(jTemp);
+            }
+
+            this.getInter().afficherFinDuTour(j);
+            
         }       
         
         public void jouerUnCoup(Joueur joueur){
             lancerDesEtAvancer();
             joueur.getPositionCourante().action(joueur);
         }
-        
-        
-        
+
         
 	public int lancerDe() {
             Random jet = new Random();
@@ -132,7 +144,7 @@ public class Monopoly {
             for (Compagnie comp : j.getCompagnies()){
                 comp.setProprietaire(null);
             }
-            this.getInter().afficherJoueurPerdu();
+            this.getInter().afficherJoueurPerdu(j);
             this.getJoueurs().remove(j);
         }
              
@@ -149,7 +161,7 @@ public class Monopoly {
         private void addJoueur (Joueur joueur){
             joueurs.add(joueur);
         }
-        public ArrayList<Joueur> getJoueurs(){
+        public LinkedList<Joueur> getJoueurs(){
             return this.joueurs;
         }
         
@@ -158,12 +170,9 @@ public class Monopoly {
         }
         
         public Joueur getJoueurCourant() {
-            return joueurs.get(numJoueur-1);
+            return joueurs.getFirst();
 	}
-        public void setJoueurCourant(Joueur j){
-            numJoueur = (joueurs.indexOf(j))+1;
-        }
-       
+        
        public Interface getInter(){
            return this.inter;
        }
