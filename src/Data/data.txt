@@ -14,9 +14,9 @@ C,13,Companie de distribution d'électricité,150
 P,14,Rue de Paradis,violet,160,12,60,180,500,700,900,100,100
 P,15,Av. de Neuilly,violet,140,10,50,150,450,625,750,100,100
 G,16,Gare de Lyon,200
-P,17,Bd Saint-Michel,orange,180,14,70,200,550,750,950,100,100
+P,17,Av. Mozart,orange,180,14,70,200,550,750,950,100,100
 CT,18,Caisse de Communauté
-P,19,Av. Mozart,orange,180,14,70,200,550,750,950,100,100
+P,19,Bd Saint-Michel,orange,180,14,70,200,550,750,950,100,100
 P,20,Place Pigalle,orange,200,16,80,220,600,800,1000,100,100
 CA,21,Parc Gratuit,0
 P,22,Bd Malesherbes,rouge,220,18,90,250,700,875,1050,150,150
