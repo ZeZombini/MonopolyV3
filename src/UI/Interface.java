@@ -69,6 +69,12 @@ public class Interface {
 
         
         /* METHODE D'AFFICHAGE SIMPLE */
+        public void lancementDes(){
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Appuyez sur ENTRE pour lancer les dés");
+            sc.nextLine();
+            
+        }
         public void afficheRecapDebutTour(){
             System.out.println("Recapitulatif des possessions :");
             for (Joueur j : getMonopoly().getJoueurs()){
