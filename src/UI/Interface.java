@@ -75,20 +75,27 @@ public class Interface {
             sc.nextLine();
             
         }
-        public void afficheRecapDebutTour(){
-            System.out.println("Recapitulatif des possessions :");
-            for (Joueur j : getMonopoly().getJoueurs()){
-                System.out.println("Le joueur " + j.getNomJoueur() + " a " + j.getCash() + " euros et possède");
-                for (Gare g : j.getGares()){
-                    System.out.println(" - " + g.getNomCarreau());
+        public void afficheRecapDebutTour(Joueur j){
+            System.out.println("");
+            System.out.println("---------------------------------------");
+            System.out.println("Recapitulatif :");
+            for (Joueur jTemp : getMonopoly().getJoueurs()){
+                System.out.println(" - Le joueur " + jTemp.getNomJoueur() + " se trouve sur la case " 
+                        + jTemp.getPositionCourante().getNumero() + " : "
+                        + jTemp.getPositionCourante().getNomCarreau());
+                System.out.println("   Il possède " + jTemp.getCash() + " euros");
+                for (Gare g : jTemp.getGares()){
+                    System.out.println("    - " + g.getNomCarreau());
                 }
-                for (Compagnie c : j.getCompagnies()){
-                    System.out.println(" - " + c.getNomCarreau());
+                for (Compagnie c : jTemp.getCompagnies()){
+                    System.out.println("    - " + c.getNomCarreau());
                 }
-                for (ProprieteAConstruire p : j.getProprietesAConstruire()){
-                    System.out.println(" - " + p.getGroupePropriete().getCouleur() + " : " + p.getNomCarreau());
+                for (ProprieteAConstruire p : jTemp.getProprietesAConstruire()){
+                    System.out.println("    - " + p.getGroupePropriete().getCouleur() + " : " + p.getNomCarreau());
                 }
             }
+            System.out.println("");
+            System.out.println("Tour de " + j.getNomJoueur());
         }
         
         public void afficherFinDuTour(Joueur j){
@@ -96,11 +103,14 @@ public class Interface {
         }
         
 	public void afficherLancerDes(int de1, int de2) {
-            System.out.println("Le résultat du premier dé est " + de1 + " et le résultat du deuxième est " + de2 + "\nCe qui donne une somme de " + (de1 + de2));
+            System.out.println("Vous faites un lancé de " + (de1 + de2));
+            if (de1==de2){
+                System.out.println("Bravo, vous faites un double !");
+            }
 	}
 
 	public void afficherEtatJoueur(Joueur j) {
-            System.out.println("Vous arrivez sur la case : " + j.getPositionCourante().getNomCarreau());
+            System.out.println("Vous arrivez sur la case " + j.getPositionCourante().getNumero() + " : " + j.getPositionCourante().getNomCarreau());
 	}
         
         public void afficherAllerPrison(Joueur j) {
