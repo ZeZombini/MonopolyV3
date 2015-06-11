@@ -4,8 +4,11 @@ import Jeu.Carreau;
 import Jeu.CarreauPropriete;
 import Jeu.CarteCaisseEnum;
 import Jeu.CarteChanceEnum;
+import Jeu.Compagnie;
+import Jeu.Gare;
 import Jeu.Joueur;
 import Jeu.Monopoly;
+import Jeu.ProprieteAConstruire;
 import java.util.Scanner;
 
 public class Interface {
@@ -68,6 +71,22 @@ public class Interface {
 
         
         /* METHODE D'AFFICHAGE SIMPLE */
+        public void afficheRecapDebutTour(){
+            System.out.println("Recapitulatif des possessions :");
+            for (Joueur j : getMonopoly().getJoueurs()){
+                System.out.println("Le joueur " + j.getNomJoueur() + " a " + j.getCash() + " euros et possède");
+                for (Gare g : j.getGares()){
+                    System.out.println(" - " + g.getNomCarreau());
+                }
+                for (Compagnie c : j.getCompanies()){
+                    System.out.println(" - " + c.getNomCarreau());
+                }
+                for (ProprieteAConstruire p : j.getProprietes()){
+                    System.out.println(" - " + p.getGroupePropriete().getCouleur() + " : " + p.getNomCarreau());
+                }
+            }
+        }
+        
 	public void afficherLancerDes(int de1, int de2) {
             System.out.println("Le résultat du premier dé est " + de1 + " et le résultat du deuxième est " + de2 + "\nCe qui donne une somme de " + (de1 + de2));
 	}
