@@ -72,7 +72,11 @@ public class Monopoly {
             inter.afficherEtatJoueur(joueur);
         }
         
-
+        
+        public void elimineJoueur(Joueur j) {
+            error;
+        }
+             
         
 
 
@@ -118,6 +122,8 @@ public class Monopoly {
         public void setCartesCaisse(LinkedList<CarteCaisse> carteCaisses){
             this.cartesCaisse = carteCaisses;
         }
+        
+        
         
         public int getNbMaisons(){
             return this.nbMaisons;
@@ -288,5 +294,5 @@ public class Monopoly {
                 
                 return data;
         }
-             
+
 }
