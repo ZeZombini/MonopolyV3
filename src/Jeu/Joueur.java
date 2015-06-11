@@ -142,9 +142,15 @@ public class Joueur {
         }
 	public void addPropriete(ProprieteAConstruire prop) {
             int i = 0;
-            while (proprietesAConstruire.get(i).getNumero() > prop.getNumero()){
-                i++;
+            while (i <= proprietesAConstruire.size()-1){
+                if (proprietesAConstruire.get(i).getNumero() < prop.getNumero()){
+                    i++;
+                } else {
+                    break;
+                }
             }
+            
+
             this.proprietesAConstruire.add(i,prop);
 	}
         
