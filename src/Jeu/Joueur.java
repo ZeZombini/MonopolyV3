@@ -103,10 +103,14 @@ public class Joueur {
                 return cash; // Et on retourne cash
             } else { // Sinon, on lui enlève toute son argent
                 this.setCash(0);
-                this.perdu();
+                getMonopoly().elimineJoueur(this);
                 return cashJoueur; // et on retourne ce qu'il avait
             }
 	}
+        
+        public Monopoly getMonopoly(){
+            return this.monopoly;
+        }
 
         
 	public int getNbGare() {
