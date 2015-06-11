@@ -26,9 +26,53 @@ public class Monopoly {
 	}
 
         public void jouer(){
-            error;
-        }
+            Joueur joueur = this.getJoueurCourant();
+            joueur.setDoubleDe(true);
+            if (joueur.getDrapeauPrison() && joueur.getPeutJouer()) {
+                int des = this.lancerDes();
+                if (joueur.getDoubleDe()){
+                    joueur.liberePrison();
+                    joueur.incDouble();
+                    joueur.avancer(des);
+                    joueur.getPositionCourante().action(joueur);
+                }
+                else{
+                    joueur.incrNbTourPrison();
+                    if (joueur.getNbTourPrison() == 3){
+                        joueur.removeCash(50);
+                        if (joueur.getPeutJouer()){
+                            joueur.liberePrison();
+                            joueur.avancer(des);
+                            joueur.getPositionCourante().action(joueur);
+                        }
+                    }
+                    else {
+                        if (joueur.isCarteCaisseLibere() && this.getInter().afficherUtilisationCarte()){
+                            this.getCartesCaisse().addLast(new CarteCaisse(this, CarteCaisseEnum.libere_prison));
+                            joueur.setCarteCaisseLibere(false);
+                            joueur.liberePrison();
+                        }
+                        else if (joueur.isCarteChanceLibere() && this.getInter().afficherUtilisationCarte()){
+                            this.getCartesChance().addLast(new CarteChance(this, CarteChanceEnum.libere_prison));
+                            joueur.setCarteChanceLibere(false);
+                            joueur.liberePrison();
+                        }
+                    }
+                }
+            }
+            while (joueur.getDoubleDe() && !joueur.getDrapeauPrison() && joueur.getPeutJouer()){
+                jouerUnCoup(joueur);
+            }
+            if (!joueur.getPeutJouer()){
+                this.elimineJoueur(joueur);
+            }
+            this.getInter().afficherFinDuTour();
+        }       
         
+        public void jouerUnCoup(Joueur joueur){
+            lancerDesEtAvancer();
+            joueur.getPositionCourante().action(joueur);
+        }
         
         
         
@@ -74,7 +118,21 @@ public class Monopoly {
         
         
         public void elimineJoueur(Joueur j) {
-            error;
+            for (ProprieteAConstruire prop : j.getProprietesAConstruire()){
+                prop.setProprietaire(null);
+                this.incrNbMaisons(prop.getNbMaisons());
+                prop.setNbMaisons(0);
+                this.incrNbHotels(prop.getNbHotel());
+                prop.setNbHotel(0);
+            }
+            for (Gare gare : j.getGares()){
+                gare.setProprietaire(null);
+            }
+            for (Compagnie comp : j.getCompagnies()){
+                comp.setProprietaire(null);
+            }
+            this.getInter().afficherJoueurPerdu();
+            this.getJoueurs().remove(j);
         }
              
         
