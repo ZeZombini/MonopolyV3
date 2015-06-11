@@ -117,7 +117,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
         public ArrayList<ProprieteAConstruire> peutConstruire(){
             Joueur j = this.getMonopoly().getJoueurCourant();
             Groupe groupe = this.getGroupePropriete();
-            ArrayList <ProprieteAConstruire> res = new ArrayList();
+            ArrayList <ProprieteAConstruire> res = null;
             
             if (groupe.estPossede(j) && groupe.getPrixAchatConstruction() <= j.getCash()){
                 for (ProprieteAConstruire prop : groupe.getProprietes()){
