@@ -56,8 +56,16 @@ public class ProprieteAConstruire extends CarreauPropriete {
                 j.payer(jProprio, loyer);
             }
             else if (jProprio == j){
-                while (peutConstruire()!= null){
-                    getMonopoly().getInter().demanderChoixProp(peutConstruire()).construire();
+               ArrayList<ProprieteAConstruire> proprietesConstructibles = peutConstruire();
+                while (proprietesConstructibles != null){
+                    int choix = getMonopoly().getInter().demanderChoixProp(proprietesConstructibles);
+                    if (choix == 0){
+                        proprietesConstructibles = null;
+                    }
+                    else {
+                        proprietesConstructibles.get(choix).construire();
+                        proprietesConstructibles = peutConstruire();
+                    }
                 }
             }
         }
@@ -128,7 +136,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
             return res;
         }
         
-        public void Construire(){
+        public void construire(){
             if (this.getNbMaisons()<4){
                 this.construireMaison();
                 this.getMonopoly().decrNbMaisons(1);
