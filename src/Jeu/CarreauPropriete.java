@@ -9,7 +9,7 @@ public abstract class CarreauPropriete extends Carreau {
         setPrixAchat(prixAchat);
     }
 
-    public void setPrixAchat(int prixAchat){
+    private void setPrixAchat(int prixAchat){
         this.prixAchat = prixAchat;
     }
     public int getPrixAchat() {
