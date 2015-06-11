@@ -83,6 +83,11 @@ public class Interface {
                 System.out.println("Le joueur " + j.getNomJoueur() + " va en prison!");
             }
         }
+        
+        public void afficheMontantPayer(Joueur jProprio, int montant){
+             System.out.println("Vous payez " + montant + " au joueur " + jProprio.getNomJoueur());
+        }
+        
         public void afficherActionCarteChance(CarteChanceEnum action){
             System.out.println("************** Carte Chance **************");
             System.out.println(action.toString());
