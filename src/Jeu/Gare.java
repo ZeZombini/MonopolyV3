@@ -8,14 +8,20 @@ public class Gare extends CarreauPropriete {
 
     
     @Override
-    public int calculLoyer(Joueur proprio) {
-        int nbGare = proprio.getNbGare();
+    public int calculLoyer(Joueur jProprio) {
+        int nbGare = jProprio.getNbGare();
         return 25 * nbGare;
     }
 
     @Override
     public void action(Joueur j) {
-        
+        Joueur jProprio = getProprietaire();
+        if (jProprio == null){
+            achatPropriété(j);
+        } else if (jProprio != j){
+            int loyer = calculLoyer(jProprio);
+            j.payer(jProprio, loyer);
+        }
     }
 
     @Override
