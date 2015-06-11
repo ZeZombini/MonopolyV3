@@ -34,9 +34,15 @@ public class Groupe {
         proprietes.add(c);
     }
     
-    public int getPrixAchatConstruction(){return prixAchatConstruction;}
+    public int getPrixAchatConstruction(){
+        return prixAchatConstruction;
+    }
     public void setPrixAchatConstruction(int prixAchatConstruction){
         this.prixAchatConstruction = prixAchatConstruction;
+    }
+    
+    public CouleurPropriete getCouleur(){
+        return this.couleur;
     }
     
     public float getMoyenne(){
