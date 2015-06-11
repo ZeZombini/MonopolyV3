@@ -87,6 +87,10 @@ public class Interface {
             }
         }
         
+        public void afficherFinDuTour(Joueur j){
+            System.out.println(j.getNomJoueur() + " a fini son tour.");
+        }
+        
 	public void afficherLancerDes(int de1, int de2) {
             System.out.println("Le résultat du premier dé est " + de1 + " et le résultat du deuxième est " + de2 + "\nCe qui donne une somme de " + (de1 + de2));
 	}
@@ -119,6 +123,13 @@ public class Interface {
             System.out.println("******************************************");
         }
         
+        public void afficherJoueurPerdu(Joueur j){
+            System.out.println("******************************************");
+            System.out.println("Le joueur " + j.getNomJoueur() + " est éliminiée.");
+            System.out.println("Toutes ses propriétés sont remisent en jeux");
+            System.out.println("******************************************");
+        }
+        
         /* METHODE DE DEMANDE (RETOURNANT AUTRE CHOSE QU'UN VOID */
 	public boolean demandeAchatPropriété(CarreauPropriete c) {
             Scanner sc = new Scanner(System.in);
@@ -131,5 +142,19 @@ public class Interface {
             }
                 return "oui".equals(choix);
         }
+        
+        public boolean demandeUtilisationCarte(){
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Voulez vous utiliser votre carte Libéré de prison ?");
+            String choix = sc.nextLine();
+            while (!"oui".equals(choix) & !"non".equals(choix)){
+                System.out.println("Je n'ai pas compris votre choix");
+                System.out.println("oui/non : ");
+                choix = sc.nextLine();
+            }
+                return "oui".equals(choix);          
+        }
+        
+        
 
 }
