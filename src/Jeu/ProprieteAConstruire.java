@@ -33,12 +33,33 @@ public class ProprieteAConstruire extends CarreauPropriete {
 
         @Override
         public void achatPropriété(Joueur j) {
-            
+            int cash = j.getCash();
+            int prix = getPrixAchat();
+
+            if (cash > prix){
+                if(getMonopoly().inter.demandeAchatPropriété(this)){
+                    j.removeCash(prix);
+                    setProprietaire(j);
+                    j.addGare(this);
+                }
+            }
         }
 
         @Override
         public void action(Joueur j) {
-            error();
+            Joueur jProprio = getProprietaire();
+            if (jProprio == null){
+                achatPropriété(j);
+            }
+            if (jProprio != j){
+                int loyer = calculLoyer(jProprio);
+                j.payer(jProprio, loyer);
+            }
+            else if (jProprio == j){
+                while (peutConstruire()!= null){
+                    getMonopoly().getInter().demanderChoixProp(peutConstruire()).construire();
+                }
+            }
         }
 
         
