@@ -63,7 +63,7 @@ public class ProprieteAConstruire extends CarreauPropriete {
                         proprietesConstructibles = null;
                     }
                     else {
-                        proprietesConstructibles.get(choix).construire();
+                        proprietesConstructibles.get(choix-1).construire();
                         proprietesConstructibles = peutConstruire();
                     }
                 }
