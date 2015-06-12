@@ -242,7 +242,7 @@ public class Joueur {
         public boolean getPeutJouer(){
             return this.peutJouer;
         }
-        private void setPeutJouer(boolean peutJouer){
+        public void setPeutJouer(boolean peutJouer){
             this.peutJouer = peutJouer;
         }
 }
