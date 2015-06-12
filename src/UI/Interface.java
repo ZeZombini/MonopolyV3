@@ -10,6 +10,7 @@ import Jeu.Joueur;
 import Jeu.Monopoly;
 import Jeu.ProprieteAConstruire;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Interface {
@@ -27,21 +28,29 @@ public class Interface {
     }
     
     public void initialiserPartie (){
-        Scanner sc = new Scanner(System.in);
         Scanner sc1 = new Scanner(System.in);
+        boolean entier;
         String[] nomj = new String[6];
         int[]    nbrj = new int[6];
         int nbrJoueur = 0;
         String nomJoueur;
         while(nbrJoueur<2 | nbrJoueur>6){
-            System.out.println("Veuillez indiquer le nombre de joueur : ");
-            nbrJoueur = sc.nextInt();
+            do {
+                Scanner sc = new Scanner(System.in);
+                entier = true;
+                System.out.println("Veuillez indiquer le nombre de joueur : ");
+                try{
+                    nbrJoueur = sc.nextInt();
+                }catch(InputMismatchException e){
+                    System.out.println("La valeur saisie n'est pas un entier!");
+                    entier = false;
+                }
+            } while(entier != true);
         }
         for(int i=0; i<nbrJoueur; i++){
             System.out.println("Veuillez saisir le nom du joueur n°"+(i+1)+" : ");
             nomJoueur = sc1.nextLine();
             nomj[i] = nomJoueur;
-            //monopoly.nouveauJoueur(nomJoueur);
         }
         
         // met un lancé de dé pour chaque joueur pour savoir qui commence
@@ -49,7 +58,6 @@ public class Interface {
         System.out.println("Les joueurs vont jouer dans cet ordre :");
         for(int i=0; i<nbrJoueur; i++){ 
             nbrj[i] = monopoly.lancerDe();
-            //System.out.println(nbrj[i]);
         }
         
         for(int i=0; i<nbrJoueur; i++){
@@ -76,6 +84,8 @@ public class Interface {
             
         }
         public void afficheRecapDebutTour(Joueur j){
+            Scanner sc = new Scanner(System.in);
+            String resAbandon;
             System.out.println("");
             System.out.println("---------------------------------------");
             System.out.println("Recapitulatif :");
@@ -96,6 +106,17 @@ public class Interface {
             }
             System.out.println("");
             System.out.println("Tour de " + j.getNomJoueur());
+            System.out.println("");
+            System.out.println("Voulez vous abandonner la partie ? (oui/non)");
+            resAbandon = sc.nextLine();
+            while (!"oui".equals(resAbandon) && !"non".equals(resAbandon)){
+                System.out.println("Je n'ai pas compris votre choix.");
+                System.out.println("oui/non");
+                resAbandon = sc.nextLine();
+            }
+            if ("oui".equals(resAbandon)){
+                j.setPeutJouer(false);
+            }
         }
         
         public void afficherFinDuTour(Joueur j){
@@ -149,7 +170,7 @@ public class Interface {
             Scanner sc = new Scanner(System.in);
             System.out.println("Voulez vous acheter " + c.getNomCarreau() + " pour la somme de " + c.getPrixAchat() + " euros ? (oui/non)");
             String choix = sc.nextLine();
-            while (!"oui".equals(choix) & !"non".equals(choix)){
+            while (!"oui".equals(choix) && !"non".equals(choix)){
                 System.out.println("Je n'ai pas compris votre choix");
                 System.out.println("oui/non : ");
                 choix = sc.nextLine();
@@ -159,10 +180,10 @@ public class Interface {
         
         public boolean demandeUtilisationCarte(){
             Scanner sc = new Scanner(System.in);
-            System.out.println("Voulez vous utiliser votre carte Libéré de prison ?");
+            System.out.println("Voulez vous utiliser votre carte Libéré de prison ? (oui/non)");
             String choix = sc.nextLine();
             while (!"oui".equals(choix) && !"non".equals(choix)){
-                System.out.println("Je n'ai pas compris votre choix");
+                System.out.println("Je n'ai pas compris votre choix.");
                 System.out.println("oui/non : ");
                 choix = sc.nextLine();
             }
@@ -170,18 +191,28 @@ public class Interface {
         }
         
         public int demanderChoixProp(ArrayList<ProprieteAConstruire> proprietesConstructibles){
-            Scanner sc = new Scanner(System.in);
             System.out.println("Voulez-vous construire sur une des propriétés suivantes ?");
             System.out.println("0 - Ne pas construire.");
+            boolean entier;
             int i = 0;
+            int choix = -1;
             for (ProprieteAConstruire prop : proprietesConstructibles){
                 System.out.println((i+1) + " - Construire sur la case " + prop.getNomCarreau());
                 i++;
             }
-            int choix = sc.nextInt();
+            
             while (choix<0 | choix>i){
-                System.out.println("Veuillez saisir un chiffre présent dans la liste.");
-                choix = sc.nextInt();
+                System.out.println("Veuillez saisir une valeur présente dans le tableau : ");
+                do{
+                    entier = true;
+                    Scanner sc = new Scanner(System.in);
+                    try{
+                        choix = sc.nextInt();
+                    } catch (InputMismatchException e){
+                        System.out.println("La valeur saisie n'est pas un entier!");
+                        entier = false;
+                    }
+                } while (entier != true);
             }
             return choix;
         }
