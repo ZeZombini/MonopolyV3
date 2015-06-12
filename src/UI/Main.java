@@ -14,7 +14,7 @@ public class Main {
                     m.jouer();
                 }
                 
-                System.out.println("Bravo ! Partie finit !");
+                System.out.println("Bravo ! Partie finie !");
                 System.out.println("Joueur " + m.getJoueurs().get(0).getNomJoueur() + " a gagné !");
 	}
 
