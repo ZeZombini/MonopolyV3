@@ -17,6 +17,6 @@ public class CarreauArgent extends CarreauAction {
 
     @Override
     public void action(Joueur j) {
-        j.removeCash(montant);
+        j.removeCash(montant*(-1));
     }
 }
