@@ -121,6 +121,8 @@ public class Interface {
         
         public void afficherFinDuTour(Joueur j){
             System.out.println(j.getNomJoueur() + " a fini son tour.");
+            Scanner sc = new Scanner(System.in);
+            sc.nextLine();
         }
         
 	public void afficherLancerDes(int de1, int de2) {
