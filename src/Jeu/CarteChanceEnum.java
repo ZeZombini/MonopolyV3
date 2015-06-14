@@ -2,7 +2,7 @@ package Jeu;
 
 
 public enum CarteChanceEnum {
-    libere_prison("Vous êtes libéré de prison. Cette carte peut êtr econservée jusqu'à ce qu'elle soit utilisée."),
+    libere_prison("Vous êtes libéré de prison. Cette carte peut être conservée jusqu'à ce qu'elle soit utilisée."),
     payez_reparations_voirie("Vous êtes imposé pour les réparations de voirie à raison de : 40€ par maison et 115€ par hôtel."),  
     payez_reparations_maison("Faites des réparations dans toutes vos maisons : versez pour chaque maison 25€ et pour chaque hôtel 100€."),
     payez_amende_vitesse("Amende pour excès de vitesse : 15€."),
