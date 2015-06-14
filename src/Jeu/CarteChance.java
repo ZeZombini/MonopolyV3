@@ -104,21 +104,26 @@ public class CarteChance extends Carte {
         }
         public void reculez3Cases(Joueur joueur){
             joueur.reculer(3);
+            joueur.getPositionCourante().action(joueur);
         }
         public void avancezDepart(Joueur joueur){
             joueur.avancerViaCarte(1);
-            joueur.addCash(200);
+            getMonopoly().getCarreau(1).action(joueur);
         }
         public void avancezRuePaix(Joueur joueur){
             joueur.avancerViaCarte(40);
+            getMonopoly().getCarreau(40).action(joueur);
         }
         public void avancezHenriMartin(Joueur joueur){
             joueur.avancerViaCarte(25);
+            getMonopoly().getCarreau(25).action(joueur);
         }
         public void avancezGareLyon(Joueur joueur){
             joueur.avancerViaCarte(16);
+            getMonopoly().getCarreau(16).action(joueur);
         }
         public void avancezBoulevardVillette(Joueur joueur){
             joueur.avancerViaCarte(12);
+            getMonopoly().getCarreau(12).action(joueur);
         }
 }

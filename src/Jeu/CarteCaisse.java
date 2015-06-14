@@ -113,8 +113,10 @@ public class CarteCaisse extends Carte {
     }
     public void reculezBelleville(Joueur joueur){
         joueur.setPositionCourante(this.getMonopoly().getCarreau(2));
+        getMonopoly().getCarreau(2).action(joueur);
     }
     public void avancezDepart(Joueur joueur){
         joueur.avancerViaCarte(1);
+        getMonopoly().getCarreau(1).action(joueur);
     }
 }

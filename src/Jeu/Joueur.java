@@ -60,7 +60,7 @@ public class Joueur {
         public void payer(Joueur creancier, int loyer) {
             int argentEffectif = removeCash(loyer);
             creancier.addCash(argentEffectif);
-            getMonopoly().getInter().afficheMontantPayer(creancier, loyer);
+            getMonopoly().getInter().afficheMontantPayer(this, creancier, loyer);
 	}
         
         public void reculer(int nbcases) {

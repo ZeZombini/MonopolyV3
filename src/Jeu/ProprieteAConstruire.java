@@ -123,12 +123,14 @@ public class ProprieteAConstruire extends CarreauPropriete {
                 for (ProprieteAConstruire prop : groupe.getProprietes()){
                     if ( (prop.getNbMaisons() + (prop.getNbHotel()*5)) <= groupe.getMoyenne() 
                             && prop.getNbMaisons()<4 
-                            && this.getMonopoly().getNbMaisons() != 0){
+                            && this.getMonopoly().getNbMaisons() != 0
+                            && prop.getNbHotel() == 0){
                         res.add(prop);
                     }
                     else if ((prop.getNbMaisons() + (prop.getNbHotel()*5)) <= groupe.getMoyenne() 
                             && prop.getNbMaisons() == 4 
-                            && this.getMonopoly().getNbHotels() != 0){
+                            && this.getMonopoly().getNbHotels() != 0
+                            && prop.getNbHotel() == 0){
                         res.add(prop);
                     }
                 }

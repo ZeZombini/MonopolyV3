@@ -13,7 +13,6 @@ public class Compagnie extends CarreauPropriete {
             achatPropriété(j);
         } else if (jProprio != j){
             int loyer = calculLoyer(jProprio);
-            getMonopoly().getInter().afficheMontantPayer(jProprio, loyer);
             j.payer(jProprio, loyer);
         }
     }

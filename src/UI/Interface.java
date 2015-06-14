@@ -142,8 +142,8 @@ public class Interface {
             }
         }
         
-        public void afficheMontantPayer(Joueur jProprio, int montant){
-             System.out.println("Vous payez " + montant + " au joueur " + jProprio.getNomJoueur());
+        public void afficheMontantPayer(Joueur debiteur, Joueur creancier, int montant){
+             System.out.println(debiteur.getNomJoueur() + " paye " + montant + " au joueur " + creancier.getNomJoueur());
         }
         
         public void afficherActionCarteChance(CarteChanceEnum action){

@@ -34,6 +34,19 @@ public class Monopoly {
             getInter().afficheRecapDebutTour(j);
             j.setDoubleDe(true);// Réinitialisation des variables pour le tour du joueur
             j.setNbDouble(0);
+            if (j.getDrapeauPrison()
+                &&j.getPeutJouer() 
+                && j.isCarteCaisseLibere() 
+                && this.getInter().demandeUtilisationCarte()){     // On vérifie si le joueur possède une carte Caisse de Communauté
+                    this.getCartesCaisse().addLast(new CarteCaisse(this, CarteCaisseEnum.libere_prison)); // et on lui propose de s'en servir
+                    j.setCarteCaisseLibere(false);
+                    j.liberePrison();
+            }
+            else if (j.isCarteChanceLibere() && this.getInter().demandeUtilisationCarte()){ // On vérifie s'il possède une carte Chance
+                    this.getCartesChance().addLast(new CarteChance(this, CarteChanceEnum.libere_prison)); // et on lui propose de s'en servir.
+                    j.setCarteChanceLibere(false);
+                    j.liberePrison();
+            }
             if (j.getDrapeauPrison() && j.getPeutJouer()) { //Cas où le joueur est en prison et n'est pas éliminé.
                 getInter().lancementDes();
                 int des = this.lancerDes();
@@ -53,28 +66,22 @@ public class Monopoly {
                             j.getPositionCourante().action(j);
                         }
                     }
-                    else {  // Dans le cas où le joueur n'a pas fait de double et n'est pas arrivé à sa durée maximale de détention
-                        if (j.isCarteCaisseLibere() && this.getInter().demandeUtilisationCarte()){     // On vérifie s'il possède une carte Caisse de Communauté
-                            this.getCartesCaisse().addLast(new CarteCaisse(this, CarteCaisseEnum.libere_prison)); // et on lui propose de s'en servir
-                            j.setCarteCaisseLibere(false);
-                            j.liberePrison();
-                        }
-                        else if (j.isCarteChanceLibere() && this.getInter().demandeUtilisationCarte()){ // On vérifie s'il possède une carte Chance
-                            this.getCartesChance().addLast(new CarteChance(this, CarteChanceEnum.libere_prison)); // et on lui propose de s'en servir.
-                            j.setCarteChanceLibere(false);
-                            j.liberePrison();
-                        }
-                    }
                 }
             }
             while (j.getDoubleDe() && !j.getDrapeauPrison() && j.getPeutJouer()){
                 getInter().lancementDes();// Le joueur n'est pas en prison, il est donc lancé dans une boucle standard 
                 jouerUnCoup(j);           // lui permettant de réaliser les actions adéquates.
             }
-            for (Joueur jTemp : getJoueurs()){
-                // Si le joueur a fait faillite durant le tour, il est éliminé.
-                if (!jTemp.getPeutJouer()){ 
+            int i = 0;
+            int iMax = getJoueurs().size();
+            while (i < iMax){
+                Joueur jTemp = getJoueurs().get(i);
+                if (!jTemp.getPeutJouer()){
                     this.elimineJoueur(jTemp);
+                    iMax = getJoueurs().size();
+                } 
+                else {
+                    i++;
                 }
             }
             
@@ -315,7 +322,7 @@ public class Monopoly {
                                         int num = Integer.parseInt(data.get(i)[1]);
                                         String nomC = data.get(i)[2];
 
-                                        CarreauTirage c = new CarreauTirage(num,nomC,this);
+                                        CarreauMouvement c = new CarreauMouvement(num,nomC,this);
                                         carreaux.put(num,c);
                                 }
                                 else
