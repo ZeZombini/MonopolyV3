@@ -13,4 +13,9 @@ public abstract class Carte {
     private void setMonopoly(Monopoly monopoly){
         this.monopoly = monopoly;
     }
+    
+    /**
+     * Effectue l'action assigné à la carte
+     */
+    public abstract void actionAEffectuer();
 }

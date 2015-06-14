@@ -12,8 +12,11 @@ public class Groupe {
         setPrixAchatConstruction(prixAchatConstruction);
     }
     
-    
-    
+    /**
+     * Informe si le joueur définit possède la totalité des propriétés du groupe
+     * @param p le joueur dont on veut savoir si il est propriétaire.
+     * @return vrai si le joueur est propriétaire de toutes les propriétés.
+     */
     public boolean estPossede(Joueur p) {
         Boolean res = true;
         for (ProprieteAConstruire prop : proprietes){
@@ -45,6 +48,11 @@ public class Groupe {
         return this.couleur;
     }
     
+    /**
+     * Permet de savoir le nombre de propriétés que possèdent en moyenne 
+     * les propriétés du groupe (les hôtels comptant pour 5 constructions).
+     * @return le nombre de constructions moyen des propriétés du groupe.
+     */
     public float getMoyenne(){
         float res=0;
         for (ProprieteAConstruire prop : proprietes){

@@ -15,6 +15,7 @@ public class CarteChance extends Carte {
             this.action = action;
         }
         
+        @Override
         public void actionAEffectuer (){
             Joueur joueur = this.getMonopoly().getJoueurCourant();
             CarteChanceEnum action = this.getAction();

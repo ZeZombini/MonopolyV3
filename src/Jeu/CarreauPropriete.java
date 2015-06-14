@@ -23,8 +23,17 @@ public abstract class CarreauPropriete extends Carreau {
         return this.proprietaire;
     }
 
+    /**
+     * Lance la procédure d'achat de propriété.
+     * @param j Le joueur à qui le carreau proposera l'achat.
+     */
     public abstract void achatPropriété(Joueur j);
     
+    /**
+     * Calcul le loyer de la propriété.
+     * @param proprio Le propriétaire de la propriété.
+     * @return Le loyer a payer
+     */
     public abstract int calculLoyer(Joueur proprio);
     
 

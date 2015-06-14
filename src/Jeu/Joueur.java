@@ -26,17 +26,28 @@ public class Joueur {
             setMonopoly(monopoly);
         }
 
-	public void allerPrison() {
+        /**
+         * Envoie le joueur en prison.
+         */
+        public void allerPrison() {
             this.setPositionCourante(monopoly.getCarreau(11)); // 11 = position de la prison
             this.setDrapeauPrison(true);
             this.monopoly.getInter().afficherAllerPrison(this);
 	}
+
+        /**
+         * Libère le joueur de prison.
+         */
         public void liberePrison() {
             this.setDrapeauPrison(false);
             this.setNbTourPrison(0);
         }
 
-	public void avancer(int dés) {
+        /**
+         * Déplace le joueur en avant du nombre de case envoyé en paramètre.
+         * @param dés le nombre de case que doit parcourir le joueur.
+         */
+        public void avancer(int dés) {
             this.dernierJetDes = dés;
             if (getPositionCourante().getNumero() + dés > 40) {
                 this.setPositionCourante(monopoly.getCarreau(getPositionCourante().getNumero() + dés - 40));
@@ -46,6 +57,10 @@ public class Joueur {
             }
 	}
         
+        /**
+         * Déplace le joueur à une case en particulier
+         * @param numcase le numéro de case où ira le joueur
+         */
         public void avancerViaCarte(int numcase){ // Méthode appelée exclusivement par une Carte (Chance ou Caisse)
         int i = getPositionCourante().getNumero();
             if (i > numcase){
@@ -57,12 +72,21 @@ public class Joueur {
             avancer(i);
         }
         
+        /**
+         * Fait payer le joueur d'un montant défini et verse l'argent à un créancier.
+         * @param creancier le joueur qui recevra l'argent.
+         * @param loyer le montant à verser.
+         */
         public void payer(Joueur creancier, int loyer) {
             int argentEffectif = removeCash(loyer);
             creancier.addCash(argentEffectif);
             getMonopoly().getInter().afficheMontantPayer(this, creancier, loyer);
 	}
         
+        /**
+         * Fais reculer, d'un nombre case défini, le joueur.
+         * @param nbcases le nombre de case que le joueur doit parcourir dans le sens inverse.
+         */
         public void reculer(int nbcases) {
             if (getPositionCourante().getNumero()-nbcases < 1) {
                 this.setPositionCourante(monopoly.getCarreau(getPositionCourante().getNumero() - nbcases + 40));
@@ -140,7 +164,13 @@ public class Joueur {
         public ArrayList<ProprieteAConstruire> getProprietesAConstruire() {
             return this.proprietesAConstruire;
         }
-	public void addPropriete(ProprieteAConstruire prop) {
+
+        /**
+         * Ajoute une propriétéAConstruire au joueur, en triant les propriétés
+         * dans l'odre des carreaux.
+         * @param prop la propriété à ajuter.
+         */
+        public void addPropriete(ProprieteAConstruire prop) {
             int i = 0;
             while (i <= proprietesAConstruire.size()-1){
                 if (proprietesAConstruire.get(i).getNumero() < prop.getNumero()){
@@ -149,8 +179,6 @@ public class Joueur {
                     break;
                 }
             }
-            
-
             this.proprietesAConstruire.add(i,prop);
 	}
         
