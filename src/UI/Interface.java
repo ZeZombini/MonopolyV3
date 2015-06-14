@@ -27,6 +27,9 @@ public class Interface {
         this.monopoly = monopoly;
     }
     
+    /**
+     * Lance l'inscription des joueurs.
+     */
     public void initialiserPartie (){
         Scanner sc1 = new Scanner(System.in);
         boolean entier;
@@ -77,12 +80,22 @@ public class Interface {
 
         
         /* METHODE D'AFFICHAGE SIMPLE */
+
+        /**
+         * Demande un simple retour à la ligne pour pouvoir lancer les dés.
+         */
         public void lancementDes(){
             Scanner sc = new Scanner(System.in);
             System.out.println("Appuyez sur ENTRE pour lancer les dés");
             sc.nextLine();
             
         }
+
+        /**
+         * Affiche le patrimoine de tous les joueurs et propose l'abandon au 
+         * joueur qui commence son tour.
+         * @param j le joueur qui commence son tour.
+         */
         public void afficheRecapDebutTour(Joueur j){
             Scanner sc = new Scanner(System.in);
             String resAbandon;
@@ -119,23 +132,41 @@ public class Interface {
             }
         }
         
+        /**
+         * Affiche un simple message indiquant que le joueur a fini son tour.
+         * @param j le joueur qui a fini son tour.
+         */
         public void afficherFinDuTour(Joueur j){
             System.out.println(j.getNomJoueur() + " a fini son tour.");
             Scanner sc = new Scanner(System.in);
             sc.nextLine();
         }
         
-	public void afficherLancerDes(int de1, int de2) {
+        /**
+         * Affiche le lancé de dés du joueur et si il a fait un double.
+         * @param de1 le résultat du premier dé lancé.
+         * @param de2 le résultat du deuxième dé lancé.
+         */
+        public void afficherLancerDes(int de1, int de2) {
             System.out.println("Vous faites un lancé de " + (de1 + de2));
             if (de1==de2){
                 System.out.println("Bravo, vous faites un double !");
             }
 	}
 
-	public void afficherEtatJoueur(Joueur j) {
+        /**
+         * Affiche la case ou arrive le joueur.
+         * @param j le joueur courant.
+         */
+        public void afficherEtatJoueur(Joueur j) {
             System.out.println("Vous arrivez sur la case " + j.getPositionCourante().getNumero() + " : " + j.getPositionCourante().getNomCarreau());
 	}
         
+        /**
+         * Affiche si le joueur est allé en prison après 3 doubles ou après être
+         * arrivé sur la case "Allez en prison" .
+         * @param j le joueur qui va en prison.
+         */
         public void afficherAllerPrison(Joueur j) {
             if (j.getNbDouble() == 3) {
                 System.out.println( "Le joueur " + j.getNomJoueur() + " va en prison car il a fait 3 doubles d'affilé !");
@@ -144,22 +175,40 @@ public class Interface {
             }
         }
         
-        public void afficheMontantPayer(Joueur debiteur, Joueur creancier, int montant){
-             System.out.println(debiteur.getNomJoueur() + " paye " + montant + " au joueur " + creancier.getNomJoueur());
+        /** 
+        * Inidique le montant que payer un débiteur à un créancier.
+        * @param debiteur le joueur qui paye.
+        * @param creancier le joueur qui recevra l'argent.
+        * @param montant le montant que paye le debiteur au créancier.
+        */
+       public void afficheMontantPayer(Joueur debiteur, Joueur creancier, int montant){
+                System.out.println(debiteur.getNomJoueur() + " paye " + montant + " au joueur " + creancier.getNomJoueur());
         }
         
+        /**
+         * Affiche le nom de la carte chance tirée.
+         * @param action l'action de la carte chance tirée.
+         */
         public void afficherActionCarteChance(CarteChanceEnum action){
             System.out.println("************** Carte Chance **************");
             System.out.println(action.toString());
             System.out.println("******************************************");
         }
 
+        /**
+         * Affiche le nom de la carte caisse de communauté tirée.
+         * @param action l'action de la carte caisse de communauté tirée.
+         */
         public void afficherActionCarteCaisse(CarteCaisseEnum action){
             System.out.println("********** Caisse de communauté **********");
             System.out.println(action.toString());
             System.out.println("******************************************");
         }
         
+        /**
+         * Affiche lorsque qu'un joueur a perdu.
+         * @param j le joueur qui a perdu.
+         */
         public void afficherJoueurPerdu(Joueur j){
             System.out.println("******************************************");
             System.out.println("Le joueur " + j.getNomJoueur() + " est éliminiée.");
@@ -167,7 +216,13 @@ public class Interface {
             System.out.println("******************************************");
         }
         
-        /* METHODE DE DEMANDE (RETOURNANT AUTRE CHOSE QU'UN VOID */
+        /* METHODE DE DEMANDE (RETOURNANT AUTRE CHOSE QU'UN VOID) */
+
+        /**
+         * Demande au joueur si il veut acheter une propriété.
+         * @param c la propriété a acheté.
+         * @return le choix du joueur.
+         */
 	public boolean demandeAchatPropriété(CarreauPropriete c) {
             Scanner sc = new Scanner(System.in);
             System.out.println("Voulez vous acheter " + c.getNomCarreau() + " pour la somme de " + c.getPrixAchat() + " euros ? (oui/non)");
@@ -180,6 +235,10 @@ public class Interface {
                 return "oui".equals(choix);
         }
         
+        /** 
+         * Demande à un joueur si il veut utiliser une carte "Libéré de prison".
+         * @return le choix du joueur.
+         */
         public boolean demandeUtilisationCarte(){
             Scanner sc = new Scanner(System.in);
             System.out.println("Voulez vous utiliser votre carte Libéré de prison ? (oui/non)");
@@ -192,6 +251,11 @@ public class Interface {
                 return "oui".equals(choix);          
         }
         
+        /**
+         * Affiche les propriétés où le joueur peut construire des maisons ou hôtels.
+         * @param proprietesConstructibles la liste des propriétés.
+         * @return le choix du joueur.
+         */
         public int demanderChoixProp(ArrayList<ProprieteAConstruire> proprietesConstructibles){
             System.out.println("Voulez-vous construire sur une des propriétés suivantes ?");
             System.out.println("0 - Ne pas construire.");
